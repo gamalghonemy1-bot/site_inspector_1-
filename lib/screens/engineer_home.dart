@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'inspection_review.dart';
+import 'projects_screen.dart';
 import 'supervisor_home.dart' show statusAr, statusColor;
 
 class EngineerHome extends StatefulWidget {
@@ -47,6 +48,7 @@ class _EngineerHomeState extends State<EngineerHome> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(title: Text('م. ${widget.name}'), actions: [
+          IconButton(tooltip: 'المشاريع', onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ProjectsScreen())), icon: const Icon(Icons.domain_add)),
           IconButton(onPressed: _load, icon: const Icon(Icons.refresh)),
           IconButton(onPressed: () => _sb.auth.signOut(), icon: const Icon(Icons.logout)),
         ]),
