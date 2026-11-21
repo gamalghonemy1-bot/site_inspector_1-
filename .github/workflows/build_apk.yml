@@ -34,7 +34,7 @@ jobs:
             '  }' \
             '  afterEvaluate { p ->' \
             '    if (p.name != "app" && p.hasProperty("android")) {' \
-            '      p.android.compileSdkVersion 35' \
+            '      p.android.compileSdkVersion 36' \
             '    }' \
             '  }' \
             '}' > ~/.gradle/init.d/fix.gradle
