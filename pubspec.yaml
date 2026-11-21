@@ -18,5 +18,6 @@ dependencies:
   connectivity_plus: ^6.0.3
   uuid: ^4.4.0
   intl: any
+  geocoding: ^3.0.0
 flutter:
   uses-material-design: true
