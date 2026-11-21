@@ -22,7 +22,7 @@ jobs:
           M=android/app/src/main/AndroidManifest.xml
           sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>\n    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>\n    <uses-permission android:name="android.permission.CAMERA"/>\n    <application#' $M
           sed -i 's#android:label="[^"]*"#android:label="متابعة المشرفين"#' $M
-      - name: Disable lint tasks
+      - name: Gradle init script (no lint, newer compileSdk)
         run: |
           mkdir -p ~/.gradle/init.d
           printf '%s\n' \
@@ -32,7 +32,12 @@ jobs:
             '      t.enabled = false' \
             '    }' \
             '  }' \
-            '}' > ~/.gradle/init.d/no-lint.gradle
+            '  afterEvaluate { p ->' \
+            '    if (p.name != "app" && p.hasProperty("android")) {' \
+            '      p.android.compileSdkVersion 35' \
+            '    }' \
+            '  }' \
+            '}' > ~/.gradle/init.d/fix.gradle
       - run: flutter pub get
       - name: Build release APK
         run: flutter build apk --release --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} --dart-define=SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
